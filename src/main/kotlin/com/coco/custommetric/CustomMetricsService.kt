@@ -8,11 +8,12 @@ import org.springframework.stereotype.Service
 class CustomMetricsService(
     private val meterRegistry: MeterRegistry
 ) {
-    private val orderCounter: Counter = Counter.builder("custom_orders_total")
-        .description("Total number of orders")
-        .register(meterRegistry)
 
-    fun incrementOrderCount() {
+    fun incrementOrderCount(productId: String) {
+        val orderCounter = meterRegistry.counter(
+            "custom_orders_total",
+            "productId", productId
+        )
         orderCounter.increment()
     }
 
