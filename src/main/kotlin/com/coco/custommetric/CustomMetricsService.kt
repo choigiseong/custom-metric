@@ -19,6 +19,7 @@ class CustomMetricsService(
 
 
     @CountOrder
+    @Timed("custom_orders_total_seconds")
     fun incrementOrderCount(productId: String) {
         // do something
     }
