@@ -17,12 +17,10 @@ class CustomMetricsService(
             .register(meterRegistry)
     }
 
+
+    @CountOrder
     fun incrementOrderCount(productId: String) {
-        val orderCounter = meterRegistry.counter(
-            "custom_orders_total",
-            "productId", productId
-        )
-        orderCounter.increment()
+        // do something
     }
 
 
