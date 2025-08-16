@@ -1,5 +1,6 @@
 package com.coco.custommetric
 
+@Deprecated("Use library Count instead")
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class CountOrder()
+annotation class Counted(val metricName: String)

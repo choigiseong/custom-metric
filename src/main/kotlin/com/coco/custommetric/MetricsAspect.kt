@@ -9,19 +9,20 @@ import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
 import org.springframework.stereotype.Component
 
+@Deprecated("Use library instead")
 @Aspect
 @Component
-class OrderMetricsAspect(
+class MetricsAspect(
     private val meterRegistry: MeterRegistry
 ) {
 
-    @AfterReturning("@annotation(countOrder)")
-    fun countOrder(joinPoint: JoinPoint, countOrder: CountOrder) {
+    @AfterReturning("@annotation(counted)")
+    fun countOrder(joinPoint: JoinPoint, counted: Counted) {
         val args = joinPoint.args
         val productId = args.firstOrNull().toString()
 
         val orderCounter = meterRegistry.counter(
-            "custom_orders_total",
+            counted.metricName,
             "productId", productId
         )
         orderCounter.increment()
